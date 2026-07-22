@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+const tools = [
+  ['Interés compuesto','/interes-compuesto/','Capital inicial, aportaciones periódicas, interés, plazo y capitalización.'],
+  ['Cuota de préstamo','/cuota-prestamo/','Calcula cuota mensual, intereses totales y coste completo.'],
+  ['Tabla de amortización','/tabla-amortizacion/','Desglose mensual entre intereses, capital y saldo pendiente.'],
+  ['Hipoteca','/calculadora-hipoteca/','Cuota, entrada, gastos estimados y porcentaje financiado.'],
+  ['Objetivo de ahorro','/objetivo-ahorro/','Cuánto aportar al mes para alcanzar una meta.'],
+];
+---
+<BaseLayout title="Calculadoras financieras transparentes" description="Calculadoras de finanzas personales con fórmulas, ejemplos y resultados orientativos.">
+  <section class="hero"><p class="eyebrow">Finanzas personales</p><h1>Calculadoras bancarias claras, sin captación comercial</h1><p>Empieza con cinco herramientas esenciales: interés compuesto, préstamos, amortización, hipoteca y objetivo de ahorro.</p></section>
+  <section class="cards">{tools.map(([title, href, text]) => <a class="tool-card" href={href}><h2>{title}</h2><p>{text}</p></a>)}</section>
+</BaseLayout>

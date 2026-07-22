@@ -1,0 +1,12 @@
+---
+interface Props {
+  title: string;
+  intro: string;
+  formula: string;
+  example: string;
+  faqs: Array<{ question: string; answer: string }>;
+}
+const { title, intro, formula, example, faqs } = Astro.props;
+---
+<section class="hero"><p class="eyebrow">Calculadora financiera</p><h1>{title}</h1><p>{intro}</p></section>
+<div class="calculator-grid"><slot name="calculator" /><aside class="info-card"><h2>Fórmula empleada</h2><p><code>{formula}</code></p><h2>Ejemplo resuelto</h2><p>{example}</p><h2>Preguntas frecuentes</h2>{faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}<p class="disclaimer">Resultado orientativo. No constituye asesoramiento financiero ni oferta bancaria.</p></aside></div>

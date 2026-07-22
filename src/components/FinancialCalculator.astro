@@ -1,0 +1,33 @@
+---
+interface Field { id: string; label: string; value: number; suffix?: string; }
+interface Props { kind: 'compound'|'loan'|'amortization'|'mortgage'|'savings'; fields: Field[]; }
+const { kind, fields } = Astro.props;
+---
+<section class="card" data-calculator={kind}>
+  <form>
+    {fields.map((field) => <label>{field.label}<input id={field.id} name={field.id} type="number" step="0.01" value={field.value} />{field.suffix && <small>{field.suffix}</small>}</label>)}
+    <button class="button" type="submit">Calcular</button>
+  </form>
+  <div class="result" aria-live="polite"><span>Resultado principal</span><strong data-main>—</strong><p data-detail></p></div>
+  <div data-table></div>
+</section>
+<script>
+  const money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+  const pct = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 });
+  const round = (n) => Math.round((n + Number.EPSILON) * 100) / 100;
+  const loan = (principal, annualRate, years) => { const months = Math.round(years * 12); const r = annualRate / 100 / 12; const p = r === 0 ? principal / months : (principal * r) / (1 - (1 + r) ** -months); return { payment: round(p), total: round(p * months), interest: round(p * months - principal) }; };
+  const table = (headers, rows) => `<table><thead><tr>${headers.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  document.querySelectorAll('[data-calculator]').forEach((root) => {
+    const form = root.querySelector('form'); const main = root.querySelector('[data-main]'); const detail = root.querySelector('[data-detail]'); const tableBox = root.querySelector('[data-table]');
+    const values = () => Object.fromEntries(new FormData(form).entries());
+    const calculate = () => {
+      const v = values(); const kind = root.dataset.calculator; tableBox.innerHTML = '';
+      if (kind === 'compound') { let balance = +v.initial, contributions = +v.initial; const rows = []; const months = Math.round(+v.years * 12); const r = +v.rate / 100 / 12; for (let m=1;m<=months;m++){ balance += +v.contribution; contributions += +v.contribution; balance *= 1+r; if(m%12===0) rows.push([m/12,money.format(round(balance)),money.format(round(contributions)),money.format(round(balance-contributions))]); } main.textContent = money.format(round(balance)); detail.textContent = `Intereses generados: ${money.format(round(balance-contributions))}.`; tableBox.innerHTML = table(['Año','Saldo','Aportado','Interés'], rows); }
+      if (kind === 'loan') { const r = loan(+v.principal,+v.rate,+v.years); main.textContent = money.format(r.payment); detail.textContent = `Total pagado: ${money.format(r.total)}. Intereses: ${money.format(r.interest)}.`; }
+      if (kind === 'amortization') { const r = loan(+v.principal,+v.rate,+v.years); let rem=+v.principal, amort=0; const mr=+v.rate/100/12; const rows=[]; for(let m=1;m<=Math.round(+v.years*12);m++){ const interest=rem*mr; const cap=m===Math.round(+v.years*12)?rem:Math.min(r.payment-interest,rem); rem=Math.max(0,rem-cap); amort+=cap; if(m<=12 || m%12===0) rows.push([m,money.format(round(interest+cap)),money.format(round(interest)),money.format(round(cap)),money.format(round(rem))]); } main.textContent = money.format(r.payment); detail.textContent = 'Se muestran los 12 primeros meses y cierres anuales.'; tableBox.innerHTML = table(['Mes','Cuota','Interés','Capital','Pendiente'], rows); }
+      if (kind === 'mortgage') { const down=+v.price*(+v.down/100); const costs=+v.price*(+v.costs/100); const principal=+v.price-down; const r=loan(principal,+v.rate,+v.years); main.textContent = money.format(r.payment); detail.textContent = `Entrada: ${money.format(round(down))}. Gastos: ${money.format(round(costs))}. Financiación: ${pct.format(round(principal / +v.price * 100))}%.`; }
+      if (kind === 'savings') { const months=Math.round(+v.years*12); const mr=+v.rate/100/12; const fv=+v.initial*(1+mr)**months; const monthly=fv>=+v.target?0:mr===0?(+v.target-+v.initial)/months:(+v.target-fv)*mr/((1+mr)**months-1); main.textContent = money.format(round(monthly)); detail.textContent = `Aportación mensual estimada durante ${months} meses.`; }
+    };
+    form.addEventListener('submit', (event) => { event.preventDefault(); calculate(); }); calculate();
+  });
+</script>

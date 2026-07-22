@@ -1,0 +1,20 @@
+{
+  "name": "calcfinanciera",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "astro": "^4.16.18",
+    "chart.js": "^4.4.7",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8"
+  }
+}
