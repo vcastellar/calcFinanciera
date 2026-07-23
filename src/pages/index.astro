@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/lib/url';
 const tools = [
   ['Interés compuesto','/interes-compuesto/','Capital inicial, aportaciones periódicas, interés, plazo y capitalización.'],
   ['Cuota de préstamo','/cuota-prestamo/','Calcula cuota mensual, intereses totales y coste completo.'],
@@ -10,5 +11,5 @@ const tools = [
 ---
 <BaseLayout title="Calculadoras financieras transparentes" description="Calculadoras de finanzas personales con fórmulas, ejemplos y resultados orientativos.">
   <section class="hero"><p class="eyebrow">Finanzas personales</p><h1>Calculadoras bancarias claras, sin captación comercial</h1><p>Empieza con cinco herramientas esenciales: interés compuesto, préstamos, amortización, hipoteca y objetivo de ahorro.</p></section>
-  <section class="cards">{tools.map(([title, href, text]) => <a class="tool-card" href={href}><h2>{title}</h2><p>{text}</p></a>)}</section>
+  <section class="cards">{tools.map(([title, href, text]) => <a class="tool-card" href={withBase(href)}><h2>{title}</h2><p>{text}</p></a>)}</section>
 </BaseLayout>

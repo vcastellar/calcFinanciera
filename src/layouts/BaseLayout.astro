@@ -1,6 +1,7 @@
 ---
 interface Props { title: string; description: string; }
 import '../styles/global.css';
+import { withBase } from '@/lib/url';
 const { title, description } = Astro.props;
 ---
 <!doctype html>
@@ -13,8 +14,8 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">CalcFinanciera</a>
-      <nav><a href="/interes-compuesto/">Interés compuesto</a><a href="/cuota-prestamo/">Préstamos</a><a href="/calculadora-hipoteca/">Hipoteca</a></nav>
+      <a class="brand" href={withBase('/')}>CalcFinanciera</a>
+      <nav><a href={withBase('/interes-compuesto/')}>Interés compuesto</a><a href={withBase('/cuota-prestamo/')}>Préstamos</a><a href={withBase('/calculadora-hipoteca/')}>Hipoteca</a></nav>
     </header>
     <main><slot /></main>
   </body>
