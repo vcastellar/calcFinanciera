@@ -13,6 +13,6 @@ describe('financial formulas', () => {
   });
 
   it('calculates monthly savings needed for a goal', () => {
-    expect(calculateMonthlySavingsGoal(30000, 2000, 3, 5)).toBe(434.89);
+    expect(calculateMonthlySavingsGoal(30000, 2000, 3, 5)).toBe(428.12);
   });
 });
