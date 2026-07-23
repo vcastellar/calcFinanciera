@@ -1,0 +1,163 @@
+:root {
+  --color-fondo: #0f172a;
+  --color-superficie: #1e293b;
+  --color-superficie-alt: #334155;
+  --color-texto: #e2e8f0;
+  --color-texto-tenue: #94a3b8;
+  --color-acento: #22c55e;
+  --color-acento-oscuro: #16a34a;
+  --color-borde: #334155;
+  --radio: 12px;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --fuente: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+.contenedor {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Cabecera ------------------------------------------------------------------*/
+.cabecera {
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.cabecera__titulo {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.cabecera__titulo span {
+  color: var(--color-acento);
+}
+
+.cabecera__subtitulo {
+  margin: 0;
+  color: var(--color-texto-tenue);
+  font-size: 1.05rem;
+}
+
+/* Rejilla de calculadoras ---------------------------------------------------*/
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.tarjeta {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+}
+
+.tarjeta__titulo {
+  margin: 0 0 0.25rem;
+  font-size: 1.25rem;
+}
+
+.tarjeta__descripcion {
+  margin: 0 0 1.25rem;
+  color: var(--color-texto-tenue);
+  font-size: 0.92rem;
+}
+
+/* Formularios ---------------------------------------------------------------*/
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  color: var(--color-texto-tenue);
+}
+
+.campo input {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-borde);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-size: 1rem;
+}
+
+.campo input:focus {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 1px;
+}
+
+.boton {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-acento);
+  color: #052e16;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.boton:hover {
+  background: var(--color-acento-oscuro);
+}
+
+/* Resultados ----------------------------------------------------------------*/
+.resultado {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-borde);
+}
+
+.resultado__fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+}
+
+.resultado__etiqueta {
+  color: var(--color-texto-tenue);
+}
+
+.resultado__fila--destacado {
+  margin-top: 0.35rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-borde);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.resultado__fila--destacado .resultado__valor {
+  color: var(--color-acento);
+}
+
+/* Pie -----------------------------------------------------------------------*/
+.pie {
+  border-top: 1px solid var(--color-borde);
+  padding: 1.5rem 0 2.5rem;
+  text-align: center;
+  color: var(--color-texto-tenue);
+  font-size: 0.85rem;
+}
