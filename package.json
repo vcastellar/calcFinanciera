@@ -1,20 +1,19 @@
 {
   "name": "calcfinanciera",
   "version": "0.1.0",
+  "description": "Web de calculadoras financieras: interés compuesto y cuota de préstamo.",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "test": "vitest run"
+    "dev": "node scripts/serve.js",
+    "test": "node --test",
+    "build": "node --check assets/js/finance.js"
   },
-  "dependencies": {
-    "astro": "^4.16.18",
-    "chart.js": "^4.4.7",
-    "typescript": "^5.7.2"
-  },
-  "devDependencies": {
-    "vitest": "^2.1.8"
-  }
+  "keywords": [
+    "finanzas",
+    "calculadora",
+    "interes-compuesto",
+    "prestamo"
+  ],
+  "license": "MIT"
 }

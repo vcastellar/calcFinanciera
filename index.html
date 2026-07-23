@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CalcFinanciera — Calculadoras financieras</title>
+    <meta
+      name="description"
+      content="Calculadoras financieras sencillas: interés compuesto y cuota de préstamo."
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="cabecera">
+      <div class="contenedor">
+        <h1 class="cabecera__titulo">Calc<span>Financiera</span></h1>
+        <p class="cabecera__subtitulo">
+          Calculadoras financieras sencillas y transparentes.
+        </p>
+      </div>
+    </header>
+
+    <main class="contenedor">
+      <div class="rejilla">
+        <!-- Interés compuesto -->
+        <section class="tarjeta">
+          <h2 class="tarjeta__titulo">Interés compuesto</h2>
+          <p class="tarjeta__descripcion">
+            Estima cuánto crecerá tu ahorro con aportaciones periódicas.
+          </p>
+          <form id="form-interes" novalidate>
+            <div class="campo">
+              <label for="ic-capital">Capital inicial (€)</label>
+              <input id="ic-capital" type="number" min="0" step="any" value="1000" required />
+            </div>
+            <div class="campo">
+              <label for="ic-aportacion">Aportación mensual (€)</label>
+              <input id="ic-aportacion" type="number" min="0" step="any" value="100" required />
+            </div>
+            <div class="campo">
+              <label for="ic-tasa">Interés anual (%)</label>
+              <input id="ic-tasa" type="number" min="0" step="any" value="5" required />
+            </div>
+            <div class="campo">
+              <label for="ic-anios">Plazo (años)</label>
+              <input id="ic-anios" type="number" min="1" step="1" value="10" required />
+            </div>
+            <button class="boton" type="submit">Calcular</button>
+          </form>
+          <div id="resultado-interes" class="resultado" hidden></div>
+        </section>
+
+        <!-- Cuota de préstamo -->
+        <section class="tarjeta">
+          <h2 class="tarjeta__titulo">Cuota de préstamo</h2>
+          <p class="tarjeta__descripcion">
+            Calcula la cuota mensual y los intereses de un préstamo (sistema francés).
+          </p>
+          <form id="form-prestamo" novalidate>
+            <div class="campo">
+              <label for="cp-importe">Importe del préstamo (€)</label>
+              <input id="cp-importe" type="number" min="0" step="any" value="15000" required />
+            </div>
+            <div class="campo">
+              <label for="cp-tasa">Interés anual (%)</label>
+              <input id="cp-tasa" type="number" min="0" step="any" value="6" required />
+            </div>
+            <div class="campo">
+              <label for="cp-meses">Plazo (meses)</label>
+              <input id="cp-meses" type="number" min="1" step="1" value="48" required />
+            </div>
+            <button class="boton" type="submit">Calcular</button>
+          </form>
+          <div id="resultado-prestamo" class="resultado" hidden></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="pie">
+      <div class="contenedor">
+        Los resultados son orientativos y no constituyen asesoramiento financiero.
+      </div>
+    </footer>
+
+    <script type="module" src="assets/js/app.js"></script>
+  </body>
+</html>
